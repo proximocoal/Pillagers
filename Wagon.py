@@ -6,18 +6,18 @@ class Wagon:
     """
 
     # used for capping instance variables
-    max = 10
+    max = 6
 
     def __init__(self):
         """Constructor for class Wagon objects.
 
         Instance Variables:
-            fear = int = 0
-            hate = int = 0
-            gold = int = 0
-            rations = int = 0
-            location = tuple = (0,0)
-            raiders = int = 0
+            fear = int
+            hate = int
+            gold = int
+            rations = int
+            location = tuple
+            pillagers = int
 
         Dependencies:
             Player Class
@@ -28,7 +28,7 @@ class Wagon:
         self.gold = 0
         self.rations = 0
         self.location = (0, 0)
-        self.raiders = 0
+        self.pillagers = 0
 
     def __str__(self):
         return f"""fear = {self.fear},
@@ -36,6 +36,7 @@ class Wagon:
                    gold = {self.gold},
                    rations = {self.rations},
                    location = {self.location}
+                   pillagers = {self.pillagers}
                    """
 
     def change_stat(self, stat, amount):
@@ -71,13 +72,15 @@ class Wagon:
             output = self.change_rations(amount)
         elif stat == "location":
             output = self.change_location(amount)
+        elif stat == "pillagers":
+            output = self.change_pillagers(amount)
         else:
             raise ValueError("""Stat not recognised. Must be:
                 fear,
                 hate,
                 gold,
                 rations,
-                raiders
+                pillagers
                 or location""")
         return output
 
@@ -192,7 +195,7 @@ class Wagon:
         """
         pass
 
-    def change_raiders(self, amount):
+    def change_pillagers(self, amount):
         """Modify raiders instance variable.
 
         Parameters:
@@ -205,4 +208,22 @@ class Wagon:
         Dependencies:
         self.max
         """
-        pass
+        output = False
+        if self.pillagers + amount < 0:
+            self.pillagers = 0
+        elif self.pillagers + amount > self.max:
+            self.pillagers = self.max
+            output = True
+        else:
+            self.pillagers += amount
+            output = True
+        return output
+
+    def check_loss(self):
+        """Check if rations or pillagers are 0. True if so."""
+        output = False
+        if self.rations == 0:
+            output = True
+        elif self.pillagers == 0:
+            output = True
+        return output

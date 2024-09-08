@@ -17,8 +17,8 @@ class TestWagon(unittest.TestCase):
     def tearDown(self):
         del self.test
 
-    def test_init_raiders(self):
-        assert self.test.raiders == TestWagon.initial
+    def test_init_pillagers(self):
+        assert self.test.pillagers == TestWagon.initial
 
     def test_init_gold(self):
         assert self.test.gold == TestWagon.initial
@@ -100,24 +100,24 @@ class TestWagon(unittest.TestCase):
         assert self.test.rations == TestWagon.initial
 
     @unittest.skip("Function not written")
-    def test_change_raiders_high(self):
-        assert self.test.change_raiders(TestWagon.high) is True
-        self.assertEqual(self.test.raiders, TestWagon.most)
+    def test_change_pillagers_high(self):
+        assert self.test.change_pillagers(TestWagon.high) is True
+        self.assertEqual(self.test.pillagers, TestWagon.most)
 
     @unittest.skip("Function not written")
-    def test_change_raiders_too_high(self):
-        assert self.test.change_raiders(TestWagon.too_high) is True
-        assert self.test.raiders == TestWagon.most
+    def test_change_pillagers_too_high(self):
+        assert self.test.change_pillagers(TestWagon.too_high) is True
+        assert self.test.pillagers == TestWagon.most
 
     @unittest.skip("Function not written")
-    def test_change_raiders_low(self):
-        assert self.test.change_raiders(TestWagon.low) is True
-        assert self.test.raiders == TestWagon.least
+    def test_change_pillagers_low(self):
+        assert self.test.change_pillagers(TestWagon.low) is True
+        assert self.test.pillagers == TestWagon.least
 
     @unittest.skip("Function not written")
-    def test_change_raiders_too_low(self):
-        assert self.test.change_raiders(TestWagon.too_low) is False
-        assert self.test.raiders == TestWagon.initial
+    def test_change_pillagers_too_low(self):
+        assert self.test.change_pillagers(TestWagon.too_low) is False
+        assert self.test.pillagers == TestWagon.initial
 
     @unittest.skip("Test not written")
     def test_change_location_high(self):
@@ -152,9 +152,9 @@ class TestWagon(unittest.TestCase):
         assert self.test.rations == TestWagon.most
 
     @unittest.skip("Function not written")
-    def test_change_stat_raiders(self):
-        assert self.test.change_stat('raiders', TestWagon.high) is True
-        assert self.test.raiders == TestWagon.most
+    def test_change_stat_pillagers(self):
+        assert self.test.change_stat('pillagers', TestWagon.high) is True
+        assert self.test.pillagers == TestWagon.most
 
     @unittest.skip("Test not written")
     def test_change_stat_location(self):
@@ -167,7 +167,7 @@ class TestWagon(unittest.TestCase):
                 hate,
                 gold,
                 rations,
-                raiders
+                pillagers
                 or location"""):
             self.test.change_stat(1, TestWagon.high)
 
@@ -177,4 +177,21 @@ class TestWagon(unittest.TestCase):
                    gold = {self.test.gold},
                    rations = {self.test.rations},
                    location = {self.test.location}
+                   pillagers = {self.test.pillagers}
                    """)
+
+    def test_check_loss_both(self):
+        assert self.test.check_loss() is True
+
+    def test_check_loss_pillagers(self):
+        self.test.rations = 1
+        assert self.test.check_loss() is True
+
+    def test_check_loss_rations(self):
+        self.test.pillagers = 1
+        assert self.test.check_loss() is True
+
+    def test_check_loss_neither(self):
+        self.test.pillagers = 1
+        self.test.rations = 1
+        assert self.test.check_loss() is False
