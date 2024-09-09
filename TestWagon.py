@@ -4,7 +4,7 @@ from Wagon import Wagon
 
 class TestWagon(unittest.TestCase):
     initial = 0
-    most = Wagon.max
+    most = 6
     least = 0
     high = most - initial
     too_high = high + 1
@@ -12,7 +12,7 @@ class TestWagon(unittest.TestCase):
     too_low = low - 1
 
     def setUp(self):
-        self.test = Wagon()
+        self.test = Wagon(TestWagon.most)
 
     def tearDown(self):
         del self.test

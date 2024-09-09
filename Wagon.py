@@ -1,15 +1,21 @@
 class Wagon:
     """Primary administration object of a game
 
-    Class Variables: max = int
-    the largest value for instance variables
+    Instance Variables:
+        max = int
+        fear = int
+        hate = int
+        gold = int
+        rations = int
+        location = Tuple
+        pillagers = int
     """
 
-    # used for capping instance variables
-    max = 6
-
-    def __init__(self):
+    def __init__(self, max):
         """Constructor for class Wagon objects.
+
+        Parameters:
+            max = int
 
         Instance Variables:
             fear = int
@@ -18,10 +24,7 @@ class Wagon:
             rations = int
             location = tuple
             pillagers = int
-
-        Dependencies:
-            Player Class
-            Rulebook.factions
+            max = int
         """
         self.fear = 0
         self.hate = 0
@@ -29,6 +32,7 @@ class Wagon:
         self.rations = 0
         self.location = (0, 0)
         self.pillagers = 0
+        self.max = max
 
     def __str__(self):
         return f"""fear = {self.fear},

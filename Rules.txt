@@ -10,12 +10,17 @@ only defence and events for tiles within 2 square of wagon
 
 Turn
 
+move wagon
+cannot move onto square with defenders
+move a wagon 1 square per food spent
+
 place pillagers
 must place within 2 squares of wagon
 cannot place on wagon tile
 
 defence
-if random number + hate - (pillagers-1) over [max] lose 1 pillager and defender per
+if random number + defenders over [max] lose defender per
+lose 1 pillager per defender lost - (pillagers -1)
 
 
 pillaging
@@ -40,6 +45,4 @@ check loss
 check if want to end - must be on start tile
 final score is gold at the end
 
-move wagon
-cannot move onto square with defenders
-move a wagon 1 square per food spent
+
