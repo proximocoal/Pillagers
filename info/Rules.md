@@ -2,8 +2,8 @@ Rules
 
 If you have 0 rations or pillagers you lose
 End the game by returning to home tile
-Wagon stats out of [max]
-random number is out between 1 and [max]
+Wagon stats out of [most]
+random number is out between 1 and [most]
 if abandoned tile abandoned again then desolate
 towns always have 1 defender
 only defence and events for tiles within 2 square of wagon
@@ -19,7 +19,7 @@ must place within 2 squares of wagon
 cannot place on wagon tile
 
 defence
-if random number + defenders over [max] lose defender per
+if random number + defenders over [most] lose defender per
 lose 1 pillager per defender lost - (pillagers -1)
 
 
@@ -30,8 +30,8 @@ if pillager on town tile after defence gain 2 food and 2 gold and 2 hate
 if tile abandoned 50% chance of success. No pillage on desolate
 
 Trade
-if pillager on village tile after defence gain 1 food and 1 gold and 1 hate
-if pillager on town tile after defence gain 2 food and 2 gold and 2 hate
+if pillager on village tile after defence gain 1 food and 1 gold and lose 1 fear
+if pillager on town tile after defence gain 2 food and 1 gold and lose 1 fear
 No trade on abandoned or desolate
 
 events

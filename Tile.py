@@ -42,7 +42,7 @@ class Tile():
     def __str__(self):
         """Returns value of instance variables"""
         return (f"""
-                pillage_value = {Tile.pillage_value},
+                pillage_value = {self.pillage_value},
                 defenders = {self.defenders},
                 pillagers = {self.pillagers},
                 desolated = {self.desolated},
@@ -192,7 +192,7 @@ class Tile():
             self.abandon()
 
     def complete_turn(self, fear):
-        """Modify state of Tile.
+        """Modify state of Tile and return stat modifiers.
 
         Parameters:
             fear - int

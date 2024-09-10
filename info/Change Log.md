@@ -25,3 +25,13 @@ Change Log
    f) rewrite Tile.abandon
    g) add missed () from roll_die on line 135 of Tile
    h) make subfolder info and moved all md and license file to there
+
+4. a) Updated Rules to replace max with most
+   b) Updated Tile.complete_turn() docstring to say returns stat modifiers
+   c) Changed Rules to lose fear not hate and costs only 1 gold to trade with Town
+   d) Make Village class extending Tile
+   e) Make Town class extending Village
+   f) Change __str__ of tile to return self.pillage_value rather than Tile.pillage_value (for child class purposes)
+   g) Make TestVillage class
+   h) Make TestTown class
+   i) change TestTile line 85 to refer to defenders not pillagers
