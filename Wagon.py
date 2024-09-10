@@ -2,7 +2,7 @@ class Wagon:
     """Primary administration object of a game
 
     Instance Variables:
-        max = int
+        most = int
         fear = int
         hate = int
         gold = int
@@ -11,11 +11,11 @@ class Wagon:
         pillagers = int
     """
 
-    def __init__(self, max):
+    def __init__(self, most):
         """Constructor for class Wagon objects.
 
         Parameters:
-            max = int
+            most = int
 
         Instance Variables:
             fear = int
@@ -32,7 +32,7 @@ class Wagon:
         self.rations = 0
         self.location = (0, 0)
         self.pillagers = 0
-        self.max = max
+        self.most = most
 
     def __str__(self):
         return f"""fear = {self.fear},
@@ -104,8 +104,8 @@ class Wagon:
         output = False
         if self.fear + amount < 0:
             self.fear = 0
-        elif self.fear + amount > self.max:
-            self.fear = self.max
+        elif self.fear + amount > self.most:
+            self.fear = self.most
             output = True
         else:
             self.fear += amount
@@ -128,8 +128,8 @@ class Wagon:
         output = False
         if self.hate + amount < 0:
             self.hate = 0
-        elif self.hate + amount > self.max:
-            self.hate = self.max
+        elif self.hate + amount > self.most:
+            self.hate = self.most
             output = True
         else:
             self.hate += amount
@@ -152,8 +152,8 @@ class Wagon:
         output = False
         if self.gold + amount < 0:
             self.gold = 0
-        elif self.gold + amount > self.max:
-            self.gold = self.max
+        elif self.gold + amount > self.most:
+            self.gold = self.most
             output = True
         else:
             self.gold += amount
@@ -176,8 +176,8 @@ class Wagon:
         output = False
         if self.rations + amount < 0:
             self.rations = 0
-        elif self.rations + amount > self.max:
-            self.rations = self.max
+        elif self.rations + amount > self.most:
+            self.rations = self.most
             output = True
         else:
             self.rations += amount
@@ -215,8 +215,8 @@ class Wagon:
         output = False
         if self.pillagers + amount < 0:
             self.pillagers = 0
-        elif self.pillagers + amount > self.max:
-            self.pillagers = self.max
+        elif self.pillagers + amount > self.most:
+            self.pillagers = self.most
             output = True
         else:
             self.pillagers += amount

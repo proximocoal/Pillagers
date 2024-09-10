@@ -13,6 +13,7 @@ class TestWagon(unittest.TestCase):
 
     def setUp(self):
         self.test = Wagon(TestWagon.most)
+        self.most = self.test.most
 
     def tearDown(self):
         del self.test
@@ -99,22 +100,18 @@ class TestWagon(unittest.TestCase):
         assert self.test.change_rations(TestWagon.too_low) is False
         assert self.test.rations == TestWagon.initial
 
-    @unittest.skip("Function not written")
     def test_change_pillagers_high(self):
         assert self.test.change_pillagers(TestWagon.high) is True
         self.assertEqual(self.test.pillagers, TestWagon.most)
 
-    @unittest.skip("Function not written")
     def test_change_pillagers_too_high(self):
         assert self.test.change_pillagers(TestWagon.too_high) is True
         assert self.test.pillagers == TestWagon.most
 
-    @unittest.skip("Function not written")
     def test_change_pillagers_low(self):
         assert self.test.change_pillagers(TestWagon.low) is True
         assert self.test.pillagers == TestWagon.least
 
-    @unittest.skip("Function not written")
     def test_change_pillagers_too_low(self):
         assert self.test.change_pillagers(TestWagon.too_low) is False
         assert self.test.pillagers == TestWagon.initial
@@ -151,7 +148,6 @@ class TestWagon(unittest.TestCase):
         assert self.test.change_stat('rations', TestWagon.high) is True
         assert self.test.rations == TestWagon.most
 
-    @unittest.skip("Function not written")
     def test_change_stat_pillagers(self):
         assert self.test.change_stat('pillagers', TestWagon.high) is True
         assert self.test.pillagers == TestWagon.most

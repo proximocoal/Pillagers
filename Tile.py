@@ -14,7 +14,7 @@ class Tile():
         desolate = boolean
         abandoned = boolean
         start = boolean
-        max = int
+        most = int
 
         Functions
         __init__()
@@ -30,14 +30,14 @@ class Tile():
     """
     pillage_value = {"rations": 1, "fear": 1}
 
-    def __init__(self, max):
-        """Constructor for Tile Object. Takes int parameter."""
+    def __init__(self, most):
+        """Constructor for Tile Object. Takes int parameter max."""
         self.pillagers = 0
         self.defenders = 0
         self.desolated = False
         self.abandoned = False
         self.start = False
-        self.max = max
+        self.most = most
 
     def __str__(self):
         """Returns value of instance variables"""
@@ -65,9 +65,9 @@ class Tile():
         if self.pillagers + amount < 0:
             output = False
             self.pillagers = 0
-        elif self.pillagers + amount > self.max:
+        elif self.pillagers + amount > self.most:
             output = False
-            self.pillagers = 0
+            self.pillagers = self.most
         else:
             self.pillagers += amount
         return output
@@ -88,9 +88,9 @@ class Tile():
         if self.defenders + amount < 0:
             output = False
             self.defenders = 0
-        elif self.defenders + amount > self.max:
+        elif self.defenders + amount > self.most:
             output = False
-            self.defenders = self.max
+            self.defenders = self.most
         else:
             self.defenders += amount
         return output
@@ -104,11 +104,11 @@ class Tile():
             self.desolated
             self.abandoned
         """
-        if not self.desolated:
-            self.abandoned = True
-        elif self.abandoned:
+        if self.abandoned or self.desolated:
             self.desolated = True
             self.abandoned = False
+        else:
+            self.abandoned = True
 
     def pillage(self):
         """Return value of self.pillage_value if requirements met.
@@ -132,8 +132,8 @@ class Tile():
         elif self.desolated:
             output = {}
         elif self.abandoned:
-            rnd_num = self.roll_die
-            if rnd_num < self.max/2:
+            rnd_num = self.roll_die()
+            if rnd_num < self.most/2:
                 output = {}
         return output
 
@@ -144,7 +144,7 @@ class Tile():
             random.randrange()
             self.max
         """
-        return (random.randrange(1, self.max))
+        return (random.randrange(1, self.most))
 
     def check_defence(self):
         """Change self.defenders and self.pillagers based on die roll.
@@ -163,7 +163,7 @@ class Tile():
         """
         rnd_num = self.roll_die()
         subtotal = self.defenders + rnd_num
-        surplus = subtotal - self.max
+        surplus = subtotal - self.most
         if surplus > 0:
             self.change_defenders(-surplus)
             casualties = surplus - (self.pillagers - 1)
@@ -188,7 +188,7 @@ class Tile():
             self.desolated
         """
         rnd_num = self.roll_die()
-        if fear + rnd_num < 0:
+        if fear + rnd_num < 1:
             self.abandon()
 
     def complete_turn(self, fear):
