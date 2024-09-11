@@ -12,6 +12,7 @@ class Grid():
         village_coord - list of tuples - stores locations of villages
         grid - list of lists of Tile Objects - main focus of class
         town_coord - list of tuples - stores location of towns
+        start - tuple - location of tile where start is True
 
     Functions:
         __init__(most, width, length) - builders function
@@ -19,7 +20,7 @@ class Grid():
         make_grid(width, length) - make self.grid
         make_start() - set one Tile location start value to True
         rand_village() - determines the likelyhood of Tile becoming village
-        check_coord() - checks if Tile is in proximity to village
+        check_vill_coord() - checks if Tile is in proximity to village
         check_town() - checks if village should be town.
         check_town_coord() - check if coord is in proximity to a town
         make_town() - assign towns to locations based on self.town_coord
@@ -44,19 +45,17 @@ class Grid():
             village_coord - list of tuples - stores locations of villages
             grid - list of lists of Tile Objects - main focus of class
             town_coord - list of tuples - stores location of towns
-
-        Dependencies:
-            self.make_grid()
-            self.make_start()
-            self.check_town()
-            self.make_town()
+            length - int - number of nested lists in grid
+            width - int - length of nested lists in grid
         """
         self.most = most
-        self.village_coord = [tuple(length // 2, 0)]
-        self.grid = self.make_grid(width, length)
-        self.make_start()
-        self.town_coord = self.check_town()
-        self.make_towns()
+        half = length // 2
+        self.start = (half, 0)
+        self.village_coord = [self.start]
+        self.grid = []
+        self.town_coord = []
+        self.length = length
+        self.width = width
 
     def __str__(self):
         """Return a string representation of self.grid.
@@ -80,36 +79,25 @@ class Grid():
         return output
 
     def make_grid(self, width, length):
-        """Return a list of list of Tile objects.
+        """Return a list of nested lists containing tile objects
 
-        Place of Villages determined by check_coord and rand_village.
+        The length of the parent list is length.
+        The length of the nested list is width.
 
         Parameters:
             length - int - number of nested lists
             width - int - length of nested lists
 
         Dependencies:
-            self.rand_village()
-            self.check_coord()
-            self.village_coord()
             Tile
-            Village
         """
         output = []
         len_count = 0
-        width_count = 0
         while len_count < length:
             sub_list = []
+            width_count = 0
             while width_count < width:
-                add_village = False
-                if self.check_coord(len_count, width_count):
-                    if self.rand_village():
-                        add_village = True
-                if add_village:
-                    sub_list.append(Village(self.most))
-                    self.village_coord.append(tuple(len_count, width_count))
-                else:
-                    sub_list.append(Tile(self.most))
+                sub_list.append(Tile(self.most))
                 width_count += 1
             output.append(sub_list)
             len_count += 1
@@ -124,9 +112,8 @@ class Grid():
             self.grid
             Tile
         """
-        length = len(self.grid)
-        half = length // 2
-        self.grid[half][0].start = True
+        start_location = self.grid[self.start[0]][self.start[1]]
+        start_location.start = True
 
     def rand_village(self):
         """Return True 1/3 of times called. Else False.
@@ -146,7 +133,7 @@ class Grid():
             output = True
         return output
 
-    def check_coord(self, length, width):
+    def check_vill_coord(self, length, width):
         """Return True if no tuple in self.village_coord within range
 
         Parameters:
@@ -171,14 +158,10 @@ class Grid():
     def check_town(self):
         """Determine if Village should be Town and returns a list of tuples.
 
-        Return:
-            town_coord - list of tuples - coordinates to be made into town obj
-
         Dependencies:
             self.village_coord
             self.check_town_coord()
         """
-        town_coord = []
         range = 3
         req_villages = 4
         for vil in self.village_coord[1:]:
@@ -189,8 +172,7 @@ class Grid():
                         count += 1
             if count > req_villages:
                 if self.check_town_coord(vil[0], vil[1]):
-                    town_coord.append(vil)
-        return town_coord
+                    self.town_coord.append(vil)
 
     def check_town_coord(self, length, width):
         """Check if input coordinates in range of existing towns.
@@ -227,3 +209,55 @@ class Grid():
         """
         for coord in town_coord:
             self.grid[coord[0]][coord[1]] = Town(self.most)
+
+    def make_villages(self):
+        """Replace objects in self.grid with village objects.
+
+        Replace objects based on self.check_vill_coord and self.rand_village
+
+        Dependencies:
+            self.check_vill_coord()
+            self.rand_village()
+            self.grid
+            self.village_coord
+        """
+        len_count = 0
+        for sublist in self.grid:
+            wid_count = 0
+            for space in sublist:
+                if self.rand_village():
+                    if self.check_vill_coord(len_count, wid_count):
+                        self.grid[len_count][wid_count] = Village(self.most)
+                        self.village_coord.append((len_count, wid_count))
+                wid_count += 1
+            len_count += 1
+
+    def complete_grid(self):
+        """Coordinator function for Grid class
+
+        Will repeat until at least one town made or 100 attempts.
+
+        Returns:
+            bool - True if map with town created
+
+        Dependencies:
+            self.village_coord
+            self.town_coord
+            self.make_towns()
+            self.check_town()
+            self.make_start()
+            self.make_grid()
+            seld.make_villages
+        """
+        any_towns = False
+        count = 0
+        while not any_towns and count < 100:
+            self.grid = self.make_grid(self.width, self.length)
+            self.make_start()
+            self.make_villages()
+            self.check_town()
+            any_towns = len(self.town_coord)
+            if not any_towns:
+                self.village_coord = [(self.start)]
+            count += 1
+        return (bool(any_towns))

@@ -43,3 +43,18 @@ Change Log
    e) Change TestWagon to use assertTrue and assertEqual rather than assert ... == for consistency
    f) Make Grid Class
    h) Make TestGrid Class stub
+
+6. a) change setUp in TestGrid to use class variables most, length and width as arguments
+   b) change set_up and tear_down to setUp and tearDown in TestGrid
+   c) remove tuple keyword from line 111 and 56 in Grid
+   d) signficant refactoring of Grid Class
+      1. __init__ rewritten to initialise empty objects
+      2. added start, length and width instance variables
+      3. make_grid() now only fills the grid with tile objects
+      4. move width_count local variable to within length_count loop
+      5. make_start() now uses self.start instance variable
+      6. change check_coord name to check_vill_coord
+      7. check_town directly modifies self.town_coord
+      8. added make_villages() function
+      9. added complete_grid() function
+   e) Complete TestGrid Class
