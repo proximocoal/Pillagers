@@ -1,4 +1,4 @@
-import random
+from random import randrange
 
 
 class Tile():
@@ -31,7 +31,7 @@ class Tile():
     pillage_value = {"rations": 1, "fear": 1}
 
     def __init__(self, most):
-        """Constructor for Tile Object. Takes int parameter max."""
+        """Constructor for Tile Object. Takes int parameter most."""
         self.pillagers = 0
         self.defenders = 0
         self.desolated = False
@@ -144,7 +144,7 @@ class Tile():
             random.randrange()
             self.max
         """
-        return (random.randrange(1, self.most))
+        return (randrange(1, self.most + 1))
 
     def check_defence(self):
         """Change self.defenders and self.pillagers based on die roll.

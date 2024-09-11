@@ -35,3 +35,11 @@ Change Log
    g) Make TestVillage class
    h) Make TestTown class
    i) change TestTile line 85 to refer to defenders not pillagers
+
+5. a) Village.complete_turn now also sets self.trade to false. Updated unit tests to reflect this
+   b) Change docstring of Tile __init__ to say most and not max
+   c) Change roll_die so range top end is most + 1 as randrange is not inclusive
+   d) Change Tile to only import randrange and not all of random
+   e) Change TestWagon to use assertTrue and assertEqual rather than assert ... == for consistency
+   f) Make Grid Class
+   h) Make TestGrid Class stub

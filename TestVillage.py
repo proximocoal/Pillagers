@@ -228,6 +228,7 @@ class TestVillage(unittest.TestCase):
         mock_p.assert_called()
         mock_d.assert_called()
         mock_t.assert_not_called()
+        self.assertFalse(self.test.trade)
 
     @unittest.mock.patch.object(Village, "check_defence")
     @unittest.mock.patch.object(Village, "pillage", return_value={})
@@ -242,6 +243,7 @@ class TestVillage(unittest.TestCase):
         mock_p.assert_not_called()
         mock_d.assert_called()
         mock_t.assert_called()
+        self.assertFalse(self.test.trade)
 
     def test_check_trade_no_pillagers(self):
         self.assertEqual(self.test.check_trade(), {})

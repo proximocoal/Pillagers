@@ -65,7 +65,7 @@ class Village(Tile):
         return output
 
     def complete_turn(self, fear):
-        """Modify state of Tile and return stat modifiers.
+        """Coordinating funct. Modify state of Tile and return stat modifiers.
 
         Parameters:
             fear - int
@@ -90,4 +90,5 @@ class Village(Tile):
         self.check_abandon(fear)
         output["pillagers"] = self.pillagers
         self.change_pillagers(-self.pillagers)
+        self.trade = False
         return output
