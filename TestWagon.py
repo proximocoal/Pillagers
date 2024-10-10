@@ -10,184 +10,69 @@ class TestWagon(unittest.TestCase):
     too_high = high + 1
     low = 0
     too_low = low - 1
+    stats = Wagon.stat_keys
+    not_stat = "fish"
+    not_int = 0.5
 
     def setUp(self):
         self.test = Wagon(TestWagon.most)
-        self.most = self.test.most
+        self.most = TestWagon.most
 
     def tearDown(self):
         del self.test
 
-    def test_init_pillagers(self):
-        self.assertEqual(self.test.pillagers, TestWagon.initial)
+    def test_init(self):
+        for stat in TestWagon.stats:
+            self.assertEqual(self.test.stats[stat], TestWagon.initial)
+        self.assertEqual(self.test.most, TestWagon.most)
 
-    def test_init_gold(self):
-        self.assertEqual(self.test.gold, TestWagon.initial)
+    def test_change_stat_high(self):
+        for stat in TestWagon.stats:
+            self.assertEqual(self.test.change_stat(stat, TestWagon.high), TestWagon.high)  # noqa: E501
+            self.assertEqual(self.test.stats[stat], TestWagon.most)
 
-    def test_init_rations(self):
-        self.assertEqual(self.test.rations, TestWagon.initial)
+    def test_change_stat_too_high(self):
+        for stat in TestWagon.stats:
+            self.assertEqual(self.test.change_stat(stat, TestWagon.too_high), TestWagon.most)  # noqa: E501
+            self.assertEqual(self.test.stats[stat], TestWagon.most)
 
-    def test_init_fear(self):
-        self.assertEqual(self.test.fear, TestWagon.initial)
+    def test_change_stat_low(self):
+        for stat in TestWagon.stats:
+            self.assertEqual(self.test.change_stat(stat, TestWagon.low), TestWagon.low)  # noqa: E501
+            self.assertEqual(self.test.stats[stat], TestWagon.least)
 
-    def test_init_location(self):
-        self.assertEqual(self.test.location, (TestWagon.initial, TestWagon.initial))  # noqa: E501
+    def test_change_stat_too_low(self):
+        for stat in TestWagon.stats:
+            self.assertEqual(self.test.change_stat(stat, TestWagon.too_low), TestWagon.least)  # noqa: E501
+            self.assertEqual(self.test.stats[stat], TestWagon.least)
 
-    def test_init_hate(self):
-        self.assertEqual(self.test.hate, TestWagon.initial)
-
-    def test_change_fear_high(self):
-        self.assertTrue(self.test.change_fear(TestWagon.high))
-        self.assertEqual(self.test.fear, TestWagon.most)
-
-    def test_change_fear_too_high(self):
-        self.assertTrue(self.test.change_fear(TestWagon.too_high))
-        self.assertEqual(self.test.fear, TestWagon.most)
-
-    def test_change_fear_low(self):
-        self.assertTrue(self.test.change_fear(TestWagon.low))
-        self.assertEqual(self.test.fear, TestWagon.least)
-
-    def test_change_fear_too_low(self):
-        self.assertFalse(self.test.change_fear(TestWagon.too_low))
-        self.assertEqual(self.test.fear, TestWagon.initial)
-
-    def test_change_hate_high(self):
-        self.assertTrue(self.test.change_hate(TestWagon.high))
-        self.assertEqual(self.test.hate, TestWagon.most)
-
-    def test_change_hate_too_high(self):
-        self.assertTrue(self.test.change_hate(TestWagon.too_high))
-        self.assertEqual(self.test.hate, TestWagon.most)
-
-    def test_change_hate_low(self):
-        self.assertTrue(self.test.change_hate(TestWagon.low))
-        self.assertEqual(self.test.hate, TestWagon.least)
-
-    def test_change_hate_too_low(self):
-        self.assertFalse(self.test.change_hate(TestWagon.too_low))
-        self.assertEqual(self.test.hate, TestWagon.initial)
-
-    def test_change_gold_high(self):
-        self.assertTrue(self.test.change_gold(TestWagon.high))
-        self.assertEqual(self.test.gold, TestWagon.most)
-
-    def test_change_gold_too_high(self):
-        self.assertTrue(self.test.change_gold(TestWagon.too_high))
-        self.assertEqual(self.test.gold, TestWagon.most)
-
-    def test_change_gold_low(self):
-        self.assertTrue(self.test.change_gold(self.low))
-        self.assertEqual(self.test.gold, TestWagon.least)
-
-    def test_change_gold_too_low(self):
-        self.assertFalse(self.test.change_gold(self.too_low))
-        self.assertEqual(self.test.gold, TestWagon.initial)
-
-    def test_change_rations_high(self):
-        self.assertTrue(self.test.change_rations(TestWagon.high))
-        self.assertEqual(self.test.rations, TestWagon.most)
-
-    def test_change_rations_too_high(self):
-        self.assertTrue(self.test.change_rations(TestWagon.too_high))
-        self.assertEqual(self.test.rations, TestWagon.most)
-
-    def test_change_rations_low(self):
-        self.assertTrue(self.test.change_rations(TestWagon.low))
-        self.assertEqual(self.test.rations, TestWagon.least)
-
-    def test_change_rations_too_low(self):
-        self.assertFalse(self.test.change_rations(TestWagon.too_low))
-        self.assertEqual(self.test.rations, TestWagon.initial)
-
-    def test_change_pillagers_high(self):
-        self.assertTrue(self.test.change_pillagers(TestWagon.high))
-        self.assertEqual(self.test.pillagers, TestWagon.most)
-
-    def test_change_pillagers_too_high(self):
-        self.assertTrue(self.test.change_pillagers(TestWagon.too_high))
-        self.assertEqual(self.test.pillagers, TestWagon.most)
-
-    def test_change_pillagers_low(self):
-        self.assertTrue(self.test.change_pillagers(TestWagon.low))
-        self.assertEqual(self.test.pillagers, TestWagon.least)
-
-    def test_change_pillagers_too_low(self):
-        self.assertFalse(self.test.change_pillagers(TestWagon.too_low))
-        self.assertEqual(self.test.pillagers, TestWagon.initial)
-
-    @unittest.skip("Test not written")
-    def test_change_location_high(self):
-        pass
-
-    @unittest.skip("Test not written")
-    def test_change_location_too_high(self):
-        pass
-
-    @unittest.skip("Test not written")
-    def test_change_location_low(self):
-        pass
-
-    @unittest.skip("Test not written")
-    def test_change_location_too_low(self):
-        pass
-
-    def test_change_stat_fear(self):
-        self.assertTrue(self.test.change_stat('fear', TestWagon.high))
-        self.assertEqual(self.test.fear, TestWagon.most)
-
-    def test_change_stat_hate(self):
-        self.assertTrue(self.test.change_stat('hate', TestWagon.high))
-        self.assertEqual(self.test.hate, self.most)
-
-    def test_change_stat_gold(self):
-        self.assertTrue(self.test.change_stat('gold', TestWagon.high))
-        self.assertEqual(self.test.gold, TestWagon.most)
-
-    def test_change_stat_rations(self):
-        self.assertTrue(self.test.change_stat('rations', TestWagon.high))
-        self.assertEqual(self.test.rations, TestWagon.most)
-
-    def test_change_stat_pillagers(self):
-        self.assertTrue(self.test.change_stat('pillagers', TestWagon.high))
-        self.assertEqual(self.test.pillagers, TestWagon.most)
-
-    @unittest.skip("Test not written")
-    def test_change_stat_location(self):
-        pass
+    def test_change_stat_not_int(self):
+        with self.assertRaises(ValueError):
+            for stat in TestWagon.stats:
+                self.test.change_stat(stat, TestWagon.not_int)
+        self.assertEqual(self.test.stats[stat], TestWagon.initial)
 
     def test_change_stat_fail(self):
-        with self.assertRaisesRegex(ValueError,
-                                    """Stat not recognised. Must be:
-                fear,
-                hate,
-                gold,
-                rations,
-                pillagers
-                or location"""):
-            self.test.change_stat(1, TestWagon.high)
+        with self.assertRaises(KeyError):
+            self.test.change_stat(TestWagon.not_stat, TestWagon.high)
+        with self.assertRaises(KeyError):
+            self.test.stats[TestWagon.not_stat]
 
     def test_str(self):
-        self.assertEqual(str(self.test), (f"""fear = {self.test.fear},
-                   hate = {self.test.hate},
-                   gold = {self.test.gold},
-                   rations = {self.test.rations},
-                   location = {self.test.location}
-                   pillagers = {self.test.pillagers}
-                   """))
+        self.assertEqual(str(self.test), f"{self.test.stats}, max = {self.most}")  # noqa: E501
 
     def test_check_loss_both(self):
         self.assertTrue(self.test.check_loss())
 
     def test_check_loss_pillagers(self):
-        self.test.rations = 1
+        self.test.change_stat("rations", 1)
         self.assertTrue(self.test.check_loss())
 
     def test_check_loss_rations(self):
-        self.test.pillagers = 1
+        self.test.change_stat("pillagers", 1)
         self.assertTrue(self.test.check_loss() is True)
 
     def test_check_loss_neither(self):
-        self.test.pillagers = 1
-        self.test.rations = 1
+        self.test.change_stat("pillagers", 1)
+        self.test.change_stat("rations", 1)
         self.assertFalse(self.test.check_loss())

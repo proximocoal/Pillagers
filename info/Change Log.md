@@ -58,3 +58,9 @@ Change Log
       8. added make_villages() function
       9. added complete_grid() function
    e) Complete TestGrid Class
+
+7. a) merged all instance variable apart from most in Wagon into a dictionary
+   b) remove location as a stat
+   c) merged all change stat methods into a single method in Wagon
+   d) make class variable stat_keys in wagon to control contents of instance variable self.stats
+   e) update unit tests to match update in Wagon
