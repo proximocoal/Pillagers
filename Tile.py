@@ -31,7 +31,19 @@ class Tile():
     pillage_value = {"rations": 1, "fear": 1}
 
     def __init__(self, most):
-        """Constructor for Tile Object. Takes int parameter most."""
+        """Constructor for Tile Object. Takes int parameter most.
+
+        Parameters:
+            most - int
+
+        Instance Variables:
+            pillagers - int
+            defenders - int
+            desolated - boolean
+            abandoned - boolean
+            start - boolean
+            most - int
+        """
         self.pillagers = 0
         self.defenders = 0
         self.desolated = False
@@ -40,14 +52,15 @@ class Tile():
         self.most = most
 
     def __str__(self):
-        """Returns value of instance variables"""
+        """Make string representation of variables"""
         return (f"""
                 pillage_value = {self.pillage_value},
                 defenders = {self.defenders},
                 pillagers = {self.pillagers},
                 desolated = {self.desolated},
                 abandoned = {self.abandoned},
-                start tile = {self.start}""")
+                start tile = {self.start}
+                """)
 
     def change_pillagers(self, amount):
         """Change self.pillagers by int param amount.

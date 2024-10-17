@@ -40,7 +40,8 @@ class TestTile(unittest.TestCase):
                 pillagers = {self.test.pillagers},
                 desolated = {self.test.desolated},
                 abandoned = {self.test.abandoned},
-                start tile = {self.test.start}"""))
+                start tile = {self.test.start}
+                """))
 
     def test_change_pillagers_most(self):
         result = self.test.change_pillagers(self.most-self.initial)

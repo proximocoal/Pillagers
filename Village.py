@@ -42,8 +42,7 @@ class Village(Tile):
     def __str__(self):
         """Return string representation of instance variables."""
         output = super().__str__()
-        output += f""",
-                trade = {self.trade},
+        output += f"""trade = {self.trade},
                 trade_value = {self.trade_value}"""
         return output
 

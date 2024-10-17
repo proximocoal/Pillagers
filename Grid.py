@@ -13,6 +13,13 @@ class Grid():
         grid - list of lists of Tile Objects - main focus of class
         town_coord - list of tuples - stores location of towns
         start - tuple - location of tile where start is True
+    
+    Class Variables:
+        vil_rand - int - how often a tile should be a village
+        vil_range - int - villages cannot be this close together
+        town_range - int - villages within this range can be towns
+        town_vil_min - int- number of villages required to make a town
+        town_range_limit - int - towns cannot be within this range of towns
 
     Functions:
         __init__(most, width, length) - builders function
@@ -31,6 +38,16 @@ class Grid():
         Town
         randrange from Random
     """
+    # One divided by vil_rand. How often a Tile should be a village
+    vil_rand = 3
+    # villages cannot be this number of tiles from each other
+    vil_range = 2
+    # villages that have sufficient villages in this range can become towns
+    town_range = 3
+    # number of villages within town_range needed to make town a village
+    town_vil_min = 4
+    # cannot have towns within this range of each other
+    town_range_limit = 3
 
     def __init__(self, most, width, length):
         """Constructor Function for Grid class.
@@ -116,7 +133,7 @@ class Grid():
         start_location.start = True
 
     def rand_village(self):
-        """Return True 1/3 of times called. Else False.
+        """Return True randomly with probability based on vil_limit.
 
         Chance of returning True determined by randrange
 
@@ -125,8 +142,9 @@ class Grid():
 
         Dependencies:
             randrange
+            Grid.vil_limit
         """
-        limit = 4
+        limit = Grid.vil_rand + 1
         roll_die = randrange(1, limit)
         output = False
         if roll_die == limit-1:
@@ -147,7 +165,7 @@ class Grid():
             self.village_coord
         """
         output = True
-        range = 2
+        range = Grid.vil_range
         for tup in self.village_coord:
             if length > (tup[0] - range) and length < (tup[0] + range):
                 if width > (tup[1] - range) and width < (tup[1] + range):
@@ -162,8 +180,8 @@ class Grid():
             self.village_coord
             self.check_town_coord()
         """
-        range = 3
-        req_villages = 4
+        range = Grid.town_range
+        req_villages = Grid.town_vil_min
         for vil in self.village_coord[1:]:
             count = 0
             for tup in self.village_coord[1:]:
@@ -188,7 +206,7 @@ class Grid():
             self.town_coord
         """
         add_town = True
-        range = 3
+        range = Grid.town_range_limit
         for coord in self.town_coord:
             if (length - range) < coord[0] and (length + range) > coord[0]:
                 if (width - range) < coord[1] and (width + range) > coord[1]:

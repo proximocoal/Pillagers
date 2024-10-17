@@ -43,7 +43,7 @@ class TestVillage(unittest.TestCase):
                 pillagers = {self.test.pillagers},
                 desolated = {self.test.desolated},
                 abandoned = {self.test.abandoned},
-                start tile = {self.test.start},
+                start tile = {self.test.start}
                 trade = {self.test.trade},
                 trade_value = {self.test.trade_value}"""))
 

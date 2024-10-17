@@ -11,10 +11,10 @@ class TestGrid(unittest.TestCase):
     most = 6
     length = 7
     width = 8
-    vill_prob = (1, 3)
-    vill_range = 2
-    town_range = 3
-    town_min = 4
+    vill_prob = (1, Grid.vil_rand)
+    vill_range = Grid.vil_range
+    town_range = Grid.town_range
+    town_min = Grid.town_vil_min
 
     def setUp(self):
         self.test = Grid(TestGrid.most, TestGrid.width, TestGrid.length)

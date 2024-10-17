@@ -60,7 +60,13 @@ Change Log
    e) Complete TestGrid Class
 
 7. a) merged all instance variable apart from most in Wagon into a dictionary
-   b) remove location as a stat
+   b) remove location as a stat in Wagon
    c) merged all change stat methods into a single method in Wagon
    d) make class variable stat_keys in wagon to control contents of instance variable self.stats
    e) update unit tests to match update in Wagon
+
+8. a) change docnotes for __str__ in Tile and for Class
+   b) Create Game class - unfinished
+   c) Change Grid to use class variables for ranges and numbers rather than magic numbers
+   d) Updated TestGrid to use Grid class variables
+   e) Fix Village.__str__, TestVillage.test_str and TestTown.test_str to match
